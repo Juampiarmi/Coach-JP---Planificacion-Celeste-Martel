@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coach JP — Planificación Celeste Martel</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --fire: #FF3D00; --fire-glow: #FF6D3A; --gold: #FFD600; --bg: #0E0E0F; --bg-card: #181819; --bg-card-hover: #1F1F21; --bg-filter: #141415; --text-primary: #F5F5F5; --text-secondary: #9A9A9A; --text-muted: #555; --border: rgba(255,255,255,0.07); --border-active: rgba(255,61,0,0.5); --radius-sm: 8px; --radius-md: 12px; --radius-lg: 18px; --radius-xl: 24px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text-primary); font-family: 'Inter', sans-serif; min-height: 100vh; font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(14,14,15,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 0 1.25rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-icon { width: 34px; height: 34px; background: var(--fire); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-logo-icon svg { width: 18px; height: 18px; fill: white; }
+  .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.35rem; letter-spacing: 0.03em; color: var(--text-primary); }
+  .nav-wordmark span { color: var(--fire); }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .nav-badge { background: rgba(255,61,0,0.12); border: 1px solid rgba(255,61,0,0.25); color: var(--fire-glow); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .hero { padding: 2.5rem 1.25rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fire); margin-bottom: 0.6rem; }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.05; letter-spacing: 0.01em; margin-bottom: 0.75rem; }
+  .hero h1 em { font-style: normal; color: var(--fire); }
+  .hero-sub { color: var(--text-secondary); font-size: 0.95rem; max-width: 520px; }
+  .hero-stats { display: flex; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .stat-pill { display: flex; align-items: center; gap: 7px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 30px; padding: 6px 14px; font-size: 13px; color: var(--text-secondary); }
+  .stat-pill b { color: var(--text-primary); font-weight: 600; }
+  .stat-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--fire); }
+  .mesociclo-box { background: rgba(124,77,255,0.05); border: 1px solid rgba(124,77,255,0.15); border-radius: var(--radius-lg); padding: 1.25rem; margin: 1.5rem auto 0; max-width: 1100px; font-size: 13.5px; color: var(--text-secondary); }
+  .mesociclo-box h3 { font-family: 'Barlow Condensed', sans-serif; color: #B39DDB; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+  .mesociclo-box strong { color: var(--text-primary); }
+  .filters-wrap { background: var(--bg-filter); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0.9rem 1.25rem; position: sticky; top: 60px; z-index: 90; overflow-x: auto; }
+  .filters-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 0.6rem; flex-wrap: nowrap; min-width: max-content; }
+  .filter-group { display: flex; align-items: center; gap: 0.4rem; }
+  .filter-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; margin-right: 2px; }
+  .filter-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; flex-shrink: 0; }
+  .chip { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-secondary); font-size: 12px; font-weight: 500; padding: 5px 13px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.18s ease; user-select: none; }
+  .chip:hover { border-color: rgba(255,61,0,0.35); color: var(--text-primary); background: rgba(255,61,0,0.06); }
+  .chip.active { background: rgba(255,61,0,0.15); border-color: var(--fire); color: var(--fire-glow); font-weight: 600; }
+  .grid-wrap { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+  .grid-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 1rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; display: flex; flex-direction: column; }
+  .card:hover { transform: translateY(-3px); border-color: rgba(255,61,0,0.3); background: var(--bg-card-hover); }
+  .card.completed { opacity: 0.55; }
+  .card-accent { height: 4px; width: 100%; background: var(--fire); flex-shrink: 0; }
+  .card-accent.musculacion { background: linear-gradient(90deg, #7C4DFF, #651FFF); }
+  .card-body { padding: 1.1rem 1.25rem 0.8rem; flex: 1; }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.7rem; }
+  .tag { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; }
+  .tag-disc-musculacion { background: rgba(124,77,255,0.15); color: #B39DDB; }
+  .tag-level-avanzado { background: rgba(255,61,0,0.1); color: #FF6D3A; }
+  .tag-gender { background: rgba(255,255,255,0.05); color: var(--text-secondary); }
+  .card h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.2; margin-bottom: 0.3rem; letter-spacing: 0.01em; }
+  .card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-footer { padding: 0.75rem 1.25rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .card-meta-info { display: flex; gap: 12px; }
+  .meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); }
+  .meta-item svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .btn-start { background: var(--fire); color: white; border: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 18px; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.15s ease, transform 0.1s ease; }
+  .btn-start:hover { background: #FF5722; transform: scale(1.03); }
+  .btn-start:active { transform: scale(0.97); }
+  .btn-done { background: rgba(0,200,130,0.12); color: #00E096; border: 1px solid rgba(0,200,130,0.25); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 18px; border-radius: var(--radius-sm); cursor: pointer; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; align-items: flex-end; justify-content: center; padding: 0; }
+  .overlay.open { display: flex; }
+  @media (min-width: 640px) { .overlay { align-items: center; padding: 1.5rem; } }
+  .modal { background: #18181A; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl) var(--radius-xl) 0 0; width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; animation: slideUp 0.28s cubic-bezier(0.34,1.1,0.64,1) forwards; }
+  @media (min-width: 640px) { .modal { border-radius: var(--radius-xl); } }
+  @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-header { position: sticky; top: 0; background: #18181A; padding: 1.1rem 1.25rem 0.9rem; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; z-index: 1; }
+  .modal-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.55rem; line-height: 1.1; letter-spacing: 0.01em; margin-bottom: 0.35rem; word-break: break-word; }
+  .modal-close { background: rgba(255,255,255,0.07); border: 1px solid var(--border); color: var(--text-secondary); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-size: 18px; line-height: 1; transition: background 0.15s; }
+  .modal-close:hover { background: rgba(255,61,0,0.15); color: var(--fire); }
+  .modal-body { padding: 1.25rem; }
+  .block { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 1rem; overflow: hidden; }
+  .block-header { display: flex; align-items: center; gap: 10px; padding: 0.8rem 1rem; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); }
+  .block-icon { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .block-icon.warmup { background: rgba(255,165,0,0.15); }
+  .block-icon.main   { background: rgba(255,61,0,0.15); }
+  .block-icon.metcon { background: rgba(255,214,0,0.15); }
+  .block-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .block-title.warmup { color: #FFA726; }
+  .block-title.main   { color: var(--fire-glow); }
+  .block-title.metcon { color: var(--gold); }
+  .block-content { padding: 0.9rem 1rem; }
+  .exercise-row { display: flex; gap: 12px; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: flex-start; flex-wrap: wrap; }
+  .exercise-row:last-child { border-bottom: none; }
+  .exercise-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); min-width: 18px; padding-top: 2px; }
+  .exercise-name { font-weight: 600; font-size: 0.92rem; flex: 1; min-width: 180px; word-break: break-word; }
+  .exercise-name sub { display: block; font-size: 11.5px; color: var(--text-secondary); font-style: italic; margin-top: 4px; line-height: 1.4; word-break: break-word; }
+  .exercise-name .sub-block-title { display: block; background: rgba(255,255,255,0.04); color: var(--fire-glow); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; width: max-content; font-weight: 700; }
+  .exercise-detail { font-size: 12px; color: var(--text-secondary); text-align: right; flex-shrink: 1; line-height: 1.5; word-break: break-word; min-width: 120px; }
+  .exercise-detail b { display: block; color: var(--text-primary); font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+  .modal-footer { padding: 1rem 1.25rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .btn-complete { flex: 1; min-width: 180px; background: var(--fire); color: white; border: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 13px 24px; border-radius: var(--radius-md); cursor: pointer; transition: background 0.15s ease, transform 0.1s ease; }
+  .btn-complete:hover { background: #FF5722; transform: scale(1.02); }
+  .btn-complete:active { transform: scale(0.98); }
+  .btn-complete.done { background: #00897B; }
+  .btn-close-modal { background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid var(--border); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 13px 20px; border-radius: var(--radius-md); cursor: pointer; }
+  .empty { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.85rem; } .grid { grid-template-columns: 1fr; } .hero-stats { gap: 0.75rem; }
+    .exercise-row { flex-direction: column; gap: 6px; padding: 0.8rem 0; }
+    .exercise-name { min-width: 100%; }
+    .exercise-detail { text-align: left; padding-left: 18px; min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="#"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L4.09 12.99 12 12.01 11 22l8.91-10.99-7.91.98z"/></svg></div><span class="nav-wordmark">COACH<span>&nbsp;JP</span></span></a>
+  <div class="nav-right"><span class="nav-badge">Avanzado</span></div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Plataforma de Entrenamiento — <span id="student-name">Celeste Martel</span></p>
+  <h1 id="hero-title">Planificación de<br><em>Composición Corporal y Gasto Energético.</em></h1>
+  <p class="hero-sub" id="hero-subtitle">Plan avanzado de alta densidad diseñado por el <strong>Coach JP</strong> para optimizar la pérdida de tejido adiposo conservando la masa muscular magra.</p>
+  <div class="hero-stats">
+    <div class="stat-pill"><div class="stat-dot"></div><b id="stat-count">0</b>&nbsp;rutinas activas</div>
+    <div class="stat-pill"><div class="stat-dot" style="background:var(--gold)"></div><b>1</b>&nbsp;disciplina</div>
+    <div class="stat-pill"><div class="stat-dot" style="background:#B39DDB"></div><b id="stat-done">0</b>&nbsp;completadas hoy</div>
+  </div>
+  <div class="mesociclo-box" id="mesociclo-content">
+    <h3>Estrategia del Mesociclo — Recomposición</h3>
+    <p>Este bloque se enfoca en maximizar la densidad del entrenamiento (superseries y AMRAPs de 12') para elevar el gasto calórico intra y post-entrenamiento, manteniendo cargas pesadas para proteger el tejido muscular:</p>
+    <ul style="margin-top: 0.5rem; padding-left: 1.25rem; list-style-type: disc; color: var(--text-secondary); margin-bottom: 1rem;">
+      <li><strong>Semana 1:</strong> Ajuste de pesos de referencia, control técnico estricto y adaptación al esfuerzo continuo.</li>
+      <li><strong>Semana 2:</strong> Incremento del volumen total acumulado y reducción activa de pausas transitorias.</li>
+      <li><strong>Semana 3:</strong> Pico de volumen metabólico e inclusión de Dropsets para potenciar el vaciado glucogénico.</li>
+      <li><strong>Semana 4:</strong> Descarga controlada del volumen y de la fatiga del tejido articular patelar.</li>
+    </ul>
+    
+    <h3 style="color: #64B5F6; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem;">🛡️ Protocolo y Cuidados de Rodilla (Patelofemoral)</h3>
+    <p style="color: #E3F2FD;">Dada tu condición óptima pero con sobrepeso transitorio y molestias ocasionales de rodillas:</p>
+    <ul style="margin-top: 0.4rem; padding-left: 1.25rem; list-style-type: square; color: #90CAF9;">
+      <li><strong>Vector de Fuerza Dominante de Cadera:</strong> En sentadillas búlgaras y lunges, prioriza la inclinación del torso hacia adelante (45°). Esto desplaza el brazo de palanca hacia el glúteo y los isquiosurales, reduciendo drásticamente la fuerza de cizalla anterior sobre la rótula.</li>
+      <li><strong>Frenado Excéntrico Consciente:</strong> Respeta los 3 segundos de bajada del tempo en la sentadilla libre y prensa. No te dejes caer; el control excéntrico muscular disipa el impacto antes de que llegue a los tendones patelares.</li>
+      <li><strong>Estabilidad del Trípode Podal:</strong> En cada empuje, clava firmemente el talón, la base del dedo gordo y el meñique. Evita que la rodilla colapse internamente (valgo dinámico) para prevenir fricciones articulares innecesarias.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="filters-wrap">
+  <div class="filters-inner">
+    <span class="filter-label">Disciplina</span>
+    <div class="filter-group" id="filter-disc">
+      <div class="chip active" data-group="disc" data-val="all">Todas</div>
+      <div class="chip" data-group="disc" data-val="Musculación">Musculación</div>
+    </div>
+    <div class="filter-sep"></div>
+    <span class="filter-label">Foco / Día</span>
+    <div class="filter-group" id="filter-level">
+      <div class="chip active" data-group="level" data-val="all">Todos</div>
+    </div>
+    <div class="filter-sep"></div>
+    <span class="filter-label">Enfoque</span>
+    <div class="filter-group" id="filter-gender">
+      <div class="chip active" data-group="gender" data-val="all">Todos</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrap">
+  <p class="grid-meta" id="grid-meta"></p>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title-block">
+        <div class="card-tags" id="modal-tags"></div>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <button class="modal-close" id="modal-close" aria-label="Cerrar">&#x2715;</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-complete" id="btn-complete">Marcar como completado</button>
+      <button class="btn-close-modal" id="btn-close-modal">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const workouts = [
+  {
+    id: "dia-1",
+    title: "DÍA 1 – Pierna Completa",
+    subtitle: "Énfasis Fuerza Axial y Glúteos (Acortamiento)",
+    discipline: "Musculación",
+    disciplineSlug: "Musculación",
+    level: "Fuerza Axial y Glúteos",
+    levelSlug: "Fuerza_Axial_y_Glúteos",
+    gender: "Femenino",
+    desc: "Reclutamiento neural de alta densidad y estímulo por tensión mecánica.",
+    warmup: [
+      { name: "Movilidad Coxofemoral (90/90 dinámico)", sub: "Sentada, rodillas a 90°. Sin despegar talones, rota las rodillas hacia el lado opuesto pasando por el centro. Torso lo más erguido posible sin manos.", reps: "3 x 10 (por lado)" },
+      { name: "Ankle Dorsiflexion (Movilidad contra pared)", sub: "De rodillas frente a un soporte con pie apoyado. Empuja rodilla adelante intentando tocar la pared sin despegar el talón. Busca tu punto límite.", reps: "3 x 12 (por lado)" },
+      { name: "Monster Walks con Banda + Glute Bridge Iso-Hold", sub: "Banda en rodillas, baja a 1/4 de sentadilla y camina lateralmente. Al terminar, acuéstate boca arriba, eleva cadera y sostén la contracción 10\" empujando la banda.", reps: "3 x 15 pasos + 10\" hold" }
+    ],
+    main: [
+      { name: "Core Lift 1: Sentadilla Trasera con Barra Libre (Back Squat)", sub: "Barra sobre trapecios. Controla bajada por 3 segundos hasta romper el paralelo. Sostén 1 segundo estricto abajo (no rebotes). Sube explosiva. Valsalva activo. Interset activo: 20-30s de Monster Walks con banda en tobillos (saltar en descarga).", reps: "4 series x 6 repeticiones", detail: "<b>Tempo: 3.1.1.0</b> RPE: 8<br>Descanso: 180s (90s post interset)" },
+      { name: "Core Lift 2: Hip Thrust con Barra o en Máquina (Saturación)", sub: "Escápulas en banco, barra en pelvis. Empuja talones. Bloquea pelvis arriba en retroversión, sostén 2s arriba en contracción máxima. Barbilla pegada al pecho mirando al frente.", reps: "3 series x 10-15 repeticiones", detail: "<b>Tempo: 2.0.1.2</b> RPE: 8.5<br>Descanso: 90s" },
+      { name: "BLOQUE DE GLÚTEOS EN SUPERSERIE (3 RONDAS TOTALES)", sub: "<span class='sub-block-title'>Ejercicio B1</span> <b>Sentadilla Búlgara con Mancuernas (Torso a 45°):</b> 8 izq. + 8 der. (Tempo: 3.0.1.0 | RPE: 8). Pie atrás en banco. Inclina torso a 45° con tibia vertical para estirar las fibras del glúteo el doble.<br><br><span class='sub-block-title'>Ejercicio B2</span> <b>Kickbacks de Glúteo en Polea Baja:</b> 12 izq. + 12 der. (Tempo: 2.0.1.1 | RPE: 9). De frente a polea con tobillera. Patea hacia atrás y ligeramente hacia afuera (30°). Pausa de 1s arriba. No archives la espalda.<br><br><i>Ejecución: Realiza B1 e inmediatamente pasa a B2 sin descanso. Al terminar B2 descansas 90s antes de la siguiente vuelta.</i>", reps: "3 Rondas Completas", detail: "<b>Flujo Continuo</b><br>Descanso: 90s" },
+      { name: "BLOQUE ACCESORIO DE CUÁDRICEPS EN TRISERIE (3-4 SERIES)", sub: "<span class='sub-block-title'>Estación 1</span> <b>Extensión de Cuádriceps en Máquina:</b> 15 reps (Tempo: 2.0.1.1 | RPE: 9). Controla bloqueo superior 1s. En la última serie de las semanas 2 y 3 aplica un Dropset doble disminuyendo el peso un 30%.<br><br><span class='sub-block-title'>Estación 2</span> <b>Interset Quemador: Wall-Sit:</b> 20-30s de forma isométrica contra la pared a 90°. Respira hondo y clava los talones.<br><br><span class='sub-block-title'>Estación 3</span> <b>Interset Quemador: Max Air Squats:</b> Sentadillas libres fluidas a máxima velocidad al fallo técnico láctico para vaciar el glucógeno.<br><br><i>Ejecución: Pasa de la estación 1 a la 2 y a la 3 de forma consecutiva. Descansa 90s al terminar el combo de velocidad.</i>", reps: "3-4 Series de Remate", detail: "<b>Saturación Láctica</b><br>Descanso: 90s" }
+    ],
+    metcon: [
+      { name: "The Anti-Rotational Flow (Estabilidad Dinámica)", sub: "Formato EMOM 8 min. Minutos Impares (1, 3, 5, 7): 45\" Dumbbell Plank Drag con Elevación Lateral + 15\" OFF. Minutos Pares (2, 4, 6, 8): 45\" Alternating KB Around the World + 15\" OFF.", reps: "EMOM 8 Minutos" },
+      { name: "Finisher Opcional (MetCon)", sub: "Formato EMOM 10 min. 0:00 a 0:40: Ritmo aeróbico controlado (RPE 5-6). 0:40 a 0:50: Aceleración (RPE 7-8). Últimos 10-15s: ¡Sprint Máximo Alisado! (RPE 9-10). Luego recuperación suave.", reps: "EMOM 10 Minutos" }
+    ]
+  },
+  {
+    id: "dia-2",
+    title: "DÍA 2 – Torso Integrado (Push/Pull)",
+    subtitle: "Estética Superior y Core Eficiente",
+    discipline: "Musculación",
+    disciplineSlug: "Musculación",
+    level: "Torso Integrado",
+    levelSlug: "Torso_Integrado",
+    gender: "Femenino",
+    desc: "Estímulo hipertrófico de la musculatura superior para un perfil estético armónico.",
+    warmup: [
+      { name: "Dislocaciones de hombro con banda", sub: "Agarre amplio, brazos estirados. Lleva la banda desde la pelvis por encima de la cabeza hasta la zona lumbar trasera. Mantiene tensión externa.", reps: "3 x 12" },
+      { name: "Cat-Cow Torácico", sub: "Cuadrupedia. Exhala curvando únicamente la espalda alta hacia el techo (gato), inhala juntando escápulas (vaca). Zona lumbar neutra.", reps: "3 x 10" },
+      { name: "YTWL Isométrico con Peso Corporal", sub: "Boca abajo. Forma una \"Y\", luego \"T\", \"W\" y \"L\" sosteniendo 3\" cada letra en el aire con pulgares arriba. Despega el pecho.", reps: "3 x 5 combos completos" }
+    ],
+    main: [
+      { name: "Core Lift: Press Militar con Barra de Pie (Overhead Press)", sub: "Barra a la altura de hombros. Aprieta glúteos y cuádriceps al 100%. Empuja en línea recta. Interset: Entre series realiza inmediatamente 8 reps de Band Pull-Aparts. Descansa los 60s restantes.", reps: "4 series x 10-8-6-6 reps", detail: "<b>Tempo: 2.1.1.0</b> Carga Ascendente" },
+      { name: "BLOQUE DE TORSO ANTAGONISTA EN SUPERSERIE (4 RONDAS)", sub: "<span class='sub-block-title'>Ejercicio A1</span> <b>Jalón al Pecho en Polea (Agarre prono ancho):</b> 10 reps (Tempo: 3.0.1.1 | RPE: 8). Torso inclinado atrás ~15°. Tracciona llevando la barra hacia el pecho superior, guiando con codos hacia tus bolsillos traseros.<br><br><span class='sub-block-title'>Ejercicio A2</span> <b>Press de Banca Inclinado con Mancuernas:</b> 10 reps (Tempo: 3.1.1.0 | RPE: 8). Banco a 30° o 45°. Inicia con agarre neutro abajo para estirar más, rota internamente al subir para terminar bloqueo en prono. Pausa 1s abajo.<br><br><i>Ejecución: Completa A1 e inmediatamente pasa a A2. Al terminar A2 descansas 90 segundos antes de comenzar la siguiente ronda.</i>", reps: "4 Rondas Completas", detail: "<b>Antagonista Híbrido</b><br>Descanso: 90s" },
+      { name: "CIRCUITO DELTOIDES COMPLETO (AMRAP DE 12 MINUTOS)", sub: "<span class='sub-block-title'>Estación 1</span> <b>Lean-Away Lateral Raise:</b> 12 reps (Tempo: 2.0.1.1). Acostada de lado sobre un banco inclinado a unos 45°. Genera alta tensión mecánica al inicio.<br><br><span class='sub-block-title'>Estación 2</span> <b>Vuelos Laterales con Mancuernas de Pie:</b> 12 reps completas. Torso levemente inclinado (5°), eleva las mancuernas hacia los costados liderando con codos.<br><br><span class='sub-block-title'>Estación 3</span> <b>Repeticiones Parciales al Fallo Láctico:</b> Max reps (RPE: 9). Inmediatamente al terminar las de pie, realiza movimiento subiendo únicamente 20-30 cm desde tus muslos.<br><br><i>Ejecución: Realiza las 3 estaciones de forma corrida. Al terminar la tercera estación descansas de 45 a 60 segundos y repites el bucle tantas veces como puedas hasta que el cronómetro marque 12:00.</i>", reps: "Bucle Continuo de 12'", detail: "<b>Máxima Densidad</b><br>Descanso: 45-60s" }
+    ],
+    metcon: [
+      { name: "The Olympic Midline Chipper (Isometría y Potencia)", sub: "Por tiempo. Completar lo más rápido posible con técnica perfecta (Time Cap: 9 mins): 30 reps Hollow Rock a Tuck-Up Combo + 20 reps Bear Crawl con Kick-Through (10 por lado) + 10 reps por lado de Single-Leg Overhead Medball Wall Slams.", reps: "7-9 Minutos (Time Cap 9')" },
+      { name: "MetCon / Finisher EMOM", sub: "Formato EMOM 6-10 min. Minuto impar: 15 Dual DB Push Press (potencia de hombros). Minuto par: 30-40s Mountain Climbers (gasto cardíaco y core).", reps: "6 a 10 Minutos" }
+    ]
+  },
+  {
+    id: "dia-3",
+    title: "DÍA 3 – Cadena Posterior",
+    subtitle: "Énfasis Isquiosurales y Glúteos (Estiramiento)",
+    discipline: "Musculación",
+    disciplineSlug: "Musculación",
+    level: "Cadena Posterior",
+    levelSlug: "Cadena_Posterior",
+    gender: "Femenino",
+    desc: "Máximo estímulo mecánico en elongación muscular para la cadena posterior.",
+    warmup: [
+      { name: "Leg Swings (Frontal y Sagital)", sub: "Apoyada de una mano en un rack. Balanceá la pierna libre adelante/atrás, luego ponete de frente y balanceá de izquierda a derecha cruzando.", reps: "3 x 10 (por lado)" },
+      { name: "Banded Good Morning con Tempo", sub: "Pisá banda elástica con ambos pies y colocá el otro extremo detrás de tu nuca. Llevá cadera atrás flexionando levemente rodillas. Espalda recta.", reps: "3 x 12" },
+      { name: "Single-Leg Glute Bridge con Iso-Hold", sub: "Boca arriba, talones apoyados. Elevá una pierna al aire. Empujá con talón apoyado para elevar cadera. Aguantá 2 segundos arriba apretando.", reps: "3 x 12 (por lado)" }
+    ],
+    main: [
+      { name: "Ejercicio: Peso Muerto Rumano con Barra (RDL)", sub: "Set de aprox: 1x12. Efectivos pesados: Empuja cadera atrás con barra pegada a muslos hasta debajo de rodillas. Pausa de 1s abajo estirando fascia. Sube sin bloquear rodillas de golpe.", reps: "4 series x 8-10 reps", detail: "<b>Tempo: 3.1.1.0</b> RPE: 7.5-8<br>Descanso: 90-120s" },
+      { name: "BLOQUE ESTÉTICO CADENA POSTERIOR EN SUPERSERIE (3-4 RONDAS)", sub: "<span class='sub-block-title'>Ejercicio B1</span> <b>Curl Femoral Sentada con Contracciones Parciales:</b> 12 reps estrictas + 6 reps parciales (Tempo: 3.0.1.2). Ejecuta las completas y luego las cortas saliendo desde el estiramiento total superior hasta la mitad del recorrido. Clava la pelvis.<br><br><span class='sub-block-title'>Ejercicio B2</span> <b>Aducciones en Máquina con Inclinación Dinámica:</b> 15-20 reps (Tempo: 2.1.1.1). Primeras 10 reps inclinando torso adelante y termina las últimas 10 reps apoyando espalda en el respaldo. Frena la excéntrica.<br><br><i>Ejecución: Completa el combo B1 e ingresa de inmediato a B2. Al finalizar las aducciones descansas 75 segundos antes de la siguiente ronda.</i>", reps: "3-4 Rondas Completas", detail: "<b>Hipertrofia por Estiramiento</b><br>Descanso: 75s" },
+      { name: "CIRCUITO DE REMATE ESTÉTICO Y AISLAMIENTO (3 RONDAS)", sub: "<span class='sub-block-title'>Estación 1</span> <b>Abducción de Cadera en Máquina Sentada (Drop Set Mecánico):</b> 5 reps inclinada adelante + 5 reps erguida + 5 reps inclinada atrás. Modifica la postura de forma continua con carga moderada sin cambiar el peso.<br><br><span class='sub-block-title'>Estación 2</span> <b>Deficit Banded Monster Walks en Sentadilla 1/4:</b> 20 pasos (10 por lado). Banda en tobillos, caminá de lado manteniendo flexión constante y plano horizontal estable.<br><br><span class='sub-block-title'>Estación 3</span> <b>Frog Pumps con Peso Corporal:</b> 45 segundos sin parar. Plantas de los pies juntas en mariposa, empuja bordes externos elevando cadera rápido. Barbilla pegada al pecho mirando al ombligo.<br><br><i>Ejecución: Realiza las tres estaciones de corrido sin descanso interno. Al terminar las Frog Pumps te otorgas 60 segundos de descanso completo y repites hasta terminar las 3 vueltas.</i>", reps: "3 Rondas de Circuito", detail: "<b>Saturación Estética</b><br>Descanso: 60s" }
+    ],
+    metcon: [
+      { name: "Hyrox Core Engine (Resistencia y Control Isométrico)", sub: "Formato AMRAP 6-9 min. Máximas vueltas posibles: 12 reps de Pike to Plank Spiderman + 24 pasos de Suitcase Carry pesado (12 pasos de ida, cambiás mano, 12 de vuelta de granjero unilateral) + 12 reps de V-Ups con transferencia de medball.", reps: "AMRAP 6-9 Minutos" }
+    ]
+  },
+  {
+    id: "dia-4",
+    title: "DÍA 4 – Tren Inferior: Cuádriceps",
+    subtitle: "Hipertrofia de Densidad Volumétrica",
+    discipline: "Musculación",
+    disciplineSlug: "Musculación",
+    level: "Cuádriceps",
+    levelSlug: "Cuádriceps",
+    gender: "Femenino",
+    desc: "Estímulo volumétrico y metabólico utilizando vectores mecánicos libres de fatiga espinal axial.",
+    warmup: [
+      { name: "Cossack Squats con Kettlebell en el pecho", sub: "Pies el doble de ancho de hombros, KB en copa. Desplazá tu peso hacia la pierna derecha bajando en sentadilla profunda unilateral. Pierna opuesta estirada.", reps: "3 x 5 (por lado)" },
+      { name: "Banded Monster Walks", sub: "Colocá banda alrededor de las punteras de tus pies. Media sentadilla baja y caminá lateral controlada, manteniendo pies al frente.", reps: "3 x 10" },
+      { name: "Single-Leg Isometric Wall Sit", sub: "Espalda contra la pared a 90°. Una vez estable, estirá una pierna hacia el frente de modo que todo tu peso quede soportado por una sola pierna.", reps: "3 x 30 segundos" }
+    ],
+    main: [
+      { name: "Core Lift: Deficit Reverse Lunge con Barra (en Rack)", sub: "Párate sobre un disco de 20kg. Barra en espalda (high bar). Haz la zancada hacia atrás bajando la rodilla por debajo del nivel del disco. Controla el descenso 3s. Torso levemente inclinado.", reps: "4 series x 8 repeticiones por pierna", detail: "<b>Tempo: 3.1.X.1</b> Descanso: 90s entre piernas" },
+      { name: "Remate Mecánico: Prensa Horizontal (180°) - Combo de Isquemia", sub: "10 repeticiones pesadas bilaterales con rango completo + Inmediatamente, sin descansar y manteniendo el peso trancado, libera una pierna y realiza 8 empujes profundos por lado.", reps: "3 series x 10 + 8/8 reps", detail: "<b>Tensión Isquémica</b> Descanso: 90s" },
+      { name: "BLOQUE EN SUPERSERIE HÍBRIDA DE ALTA INTENSIDAD (3 RONDAS)", sub: "<span class='sub-block-title'>Ejercicio B1</span> <b>Walking Lunges Contralaterales con KB en Rack:</b> 12 pasos por pierna (24 total) (Tempo: 2.0.1.0 | RPE: 8.5). Llevás una sola KB pesada pegada al pecho del lado contrario a la pierna que avanza. Torso perfectamente erguido.<br><br><span class='sub-block-title'>Ejercicio B2</span> <b>Spanish Squat Isométrica con Remo con Banda:</b> 1 serie x Fallo Técnico Mecánico (RPE: 10). Banda gruesa detrás de tus rodillas jalando hacia adelante. Siéntate en el aire manteniendo tibias a 90° y realiza remos continuos hasta que el cuádriceps falle por completo.<br><br><i>Ejecución: Ejecuta B1 y pasa inmediatamente a B2 sin pausas. Al terminar el fallo en B2 descansas 90 segundos reales antes de iniciar la siguiente vuelta.</i>", reps: "3 Rondas Completas", detail: "<b>Fallo Mecánico B2</b><br>Descanso: 90s" },
+      { name: "BLOQUE DE PANTORRILLAS ACUMULATIVO (EMOM 12 MINUTOS)", sub: "<span class='sub-block-title'>Minuto 1</span> <b>Elevación de Talones en Máquina Smith:</b> 20 reps. Metatarsos sobre step bajo, subí de forma explosiva, sostén contracción 2 segundos arriba y baja estirando al máximo.<br><br><span class='sub-block-title'>Minuto 2</span> <b>Heavy Dumbbell Farmer's Walk en Puntas de Pie:</b> 45 segundos de caminata rápida (Tip-Toe Carry) con mancuernas pesadas manteniendo los talones al máximo en el aire. No dejes que toquen el piso.<br><br><span class='sub-block-title'>Minuto 3</span> <b>Gemelos Sentada (Carga Moderada):</b> Max reps durante 45 segundos estrictos. Controla la bajada de manera estricta sintiendo el estiramiento completo de la fascia plantar.<br><br><i>Ejecución: Cada minuto en punto cambias de ejercicio (Min 1: Elevaciones, Min 2: Caminata, Min 3: Sentada). Completa 4 vueltas totales para sumar los 12 minutos estructurados.</i>", reps: "EMOM 12 Minutos", detail: "<b>Bloque de Sóleos</b><br>4 Vueltas Totales" }
+    ],
+    metcon: [
+      { name: "Cross-Body Fire (Coordinación y Transferencia)", sub: "Formato EMOM 9 min (45\" ON / 15\" OFF). Minuto 1: Renegade Row con Push-Up y Rotación Star Plank. Minuto 2: Windmill con Kettlebell (molino overhead). Minuto 3: Hollow Body Hold con Flutter Kicks.", reps: "EMOM 9 Minutos" }
+    ]
+  },
+  {
+    id: "dia-5",
+    title: "DÍA 5 – Torso Estético y Finisher",
+    subtitle: "Hipertrofia de Densidad y Depleción Final",
+    discipline: "Musculación",
+    disciplineSlug: "Musculación",
+    level: "Torso Estético",
+    levelSlug: "Torso_Estético",
+    gender: "Femenino",
+    desc: "Hipertrofia de densidad en el tren superior y depleción final de glucógeno.",
+    warmup: [
+      { name: "Kettlebell Halo a Sotts Press adaptado", sub: "Sostené KB por los cuernos. Realizá un círculo fluido alrededor de la cabeza (Halo). Al regresar al centro, bajá a sentadilla profunda y realizá press overhead.", reps: "2-3 x 5 (por lado)" },
+      { name: "Inchworm con Push-up y rotación en T", sub: "Apoyá manos en el suelo y camina al frente hasta plancha alta. Realizá flexión estricta y al subir rota lateralmente elevando un brazo en T.", reps: "2-3 x 8" },
+      { name: "Prone Scapular Blackburns", sub: "Boca abajo, frente apoyada. Despegá brazos. Llevá las manos lento desde la nuca hasta la zona lumbar rotando palmas. Exprime escápulas.", reps: "2-3 x 30 segundos" }
+    ],
+    main: [
+      { name: "Fuerza de Empuje: Bench Press con Barra (Press de Banca)", sub: "Set de aprox: 1x10. Efectivos: Arco lumbar atlético, escápulas retraídas clavadas. Bajá barra controlado 3s. Pausa de 1s estricta en el pecho. Subida explosiva. Leg drive activo.", reps: "4 series x 6-8 repeticiones", detail: "<b>Tempo: 3.1.X.1</b> Descanso: 90-120s" },
+      { name: "Fuerza de Tracción: Remo T (T-Bar Row)", sub: "Rodillas ligeramente flexionadas, torso inclinado a 45° con columna neutra. Traccioná llevando el agarre al estómago. Junta escápulas y sostén pegado al pecho 2s.", reps: "3 series x 8-10 repeticiones", detail: "<b>Tempo: 2.0.1.2</b> Descanso: 90s" },
+      { name: "BLOQUE DE FUERZA/ESTABILIDAD EN SUPERSERIE (3 RONDAS)", sub: "<span class='sub-block-title'>Ejercicio A1</span> <b>Upright Row con Barra (Remo al Mentón):</b> 15 reps (Tempo: 2.0.1.2 | RPE: 8.5). Elevá la barra guiando con codos hacia arriba y afuera. En las últimas 3 repeticiones (13, 14 y 15), aguantá la barra arriba bloqueada en contracción isométrica por 5 segundos antes de descender.<br><br><span class='sub-block-title'>Ejercicio A2</span> <b>Chaos Bench Press con Bandas y Desestabilización:</b> 1 serie x Fallo Técnico (Tempo: 2.1.1.0 | RPE: 9.5). KBs o discos colgados con bandas elásticas a los extremos. Controla la bajada absorbiendo la vibración con el core. El set termina cuando pierdes la línea limpia del movimiento.<br><br><i>Ejecución: Completa A1 e ingresa inmediatamente a A2. Al terminar el Chaos Press descansas 70 segundos antes de realizar la siguiente ronda.</i>", reps: "3 Rondas Completas", detail: "<b>Chaos Desestabilización</b><br>Descanso: 70s" },
+      { name: "BLOQUE ESTÉTICO DE BRAZOS Y CORE (AMRAP DE 12 MINUTOS)", sub: "<span class='sub-block-title'>Estación 1</span> <b>Z-Sit Dumbbell Bicep Curl:</b> 12 reps. Sentada directamente en el piso con piernas extendidas al frente en \"V\". Ejecutá el curl supino manteniendo espalda perfectamente erguida. Core anterior encendido al 100%.<br><br><span class='sub-block-title'>Estación 2</span> <b>Extensión de Tríceps sobre la Cabeza + Drop Set Mecánico:</b> 12 estrictas + 6 pushdowns. De espaldas a la polea alta, realiza las 12 extensiones overhead bloqueando codos. Inmediatamente cambia de postura de frente a la polea y haz 6 presses rápidos tradicionales hacia abajo.<br><br><span class='sub-block-title'>Estación 3</span> <b>Dual Farmer's Walk IMPAR (Overhead + Suitcase):</b> 50 metros totales. Mancuerna pesada en mano derecha abajo (maleta) y mancuerna ligera en mano izquierda bloqueada estricta overhead. Camina 25m en línea recta, baja el peso overhead de forma segura y cambia los roles de las manos para regresar los 25m restantes.<br><br><i>Ejecución: Realiza las tres estaciones de corrido en forma de circuito. Al terminar los 50m de caminata descansas 45 segundos estrictos y vuelves a empezar en la estación 1. Completa la mayor cantidad de vueltas posibles durante los 12 minutos continuos del reloj.</i>", reps: "Bucle Continuo de 12'", detail: "<b>AMRAP Densidad</b><br>Descanso: 45s post circuito" }
+    ],
+    metcon: [
+      { name: "Core y Estabilidad Lumbo-Pélvica (Bloque A + B)", sub: "Bloque A (Tabata): 8 rondas de 20\" ON / 10\" OFF alternando L-Sit Knees to Chest y Dynamic Pallof Press en estocada. Bloque B continuo: 2-3 rondas sin cortar de 45\" de Dragon Flag + 15\" OFF.", reps: "Tabata Tradicional + Bloque B" },
+      { name: "MetCon / Finisher Final", sub: "Espacio libre para el protocolo de depleción metabólica o HIIT asignado por el coach en base a tus tiempos de recuperación y fatiga estructural de la semana.", reps: "A discreción del Coach JP" }
+    ]
+  }
+];
+
+// ARQUITECTURA DE JAVASCRIPT COMPLETAMENTE FUNCIONAL E INTERACTIVA
+let completedWorkouts = JSON.parse(localStorage.getItem('jp_completed_v1')) || [];
+
+document.getElementById('student-name').textContent = "Celeste Martel";
+
+function renderFilters() {
+  const levels = [...new Set(workouts.map(w => w.level))];
+  const filterLevelContainer = document.getElementById('filter-level');
+  
+  filterLevelContainer.innerHTML = '<div class="chip active" data-group="level" data-val="all">Todos</div>';
+  
+  levels.forEach(lvl => {
+    const slug = lvl.replace(/\s+/g, '_');
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.setAttribute('data-group', 'level');
+    chip.setAttribute('data-val', slug);
+    chip.textContent = lvl;
+    filterLevelContainer.appendChild(chip);
+  });
+  
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      const group = this.getAttribute('data-group');
+      document.querySelectorAll(`.chip[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+      filterGrid();
+    });
+  });
+}
+
+function filterGrid() {
+  const discVal = document.querySelector('.chip[data-group="disc"].active').getAttribute('data-val');
+  const levelVal = document.querySelector('.chip[data-group="level"].active').getAttribute('data-val');
+  
+  let filtered = workouts;
+  
+  if (discVal !== 'all') {
+    filtered = filtered.filter(w => w.disciplineSlug === discVal);
+  }
+  if (levelVal !== 'all') {
+    filtered = filtered.filter(w => w.levelSlug === levelVal);
+  }
+  
+  renderGrid(filtered);
+}
+
+function renderGrid(data) {
+  const grid = document.getElementById('grid');
+  const meta = document.getElementById('grid-meta');
+  grid.innerHTML = '';
+  
+  document.getElementById('stat-count').textContent = workouts.length;
+  document.getElementById('stat-done').textContent = completedWorkouts.length;
+  
+  if (data.length === 0) {
+    grid.innerHTML = `
+      <div class="empty">
+        <h3>No se encontraron rutinas</h3>
+        <p>Prueba cambiando los filtros de navegación de la barra superior.</p>
+      </div>`;
+    meta.textContent = "Mostrando 0 rutinas";
+    return;
+  }
+  
+  meta.textContent = `Mostrando ${data.length} de ${workouts.length} rutinas programadas`;
+  
+  data.forEach(w => {
+    const isCompleted = completedWorkouts.includes(w.id);
+    const card = document.createElement('div');
+    card.className = `card ${isCompleted ? 'completed' : ''}`;
+    card.innerHTML = `
+      <div class="card-accent musculacion"></div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-disc-musculacion">${w.discipline}</span>
+          <span class="tag tag-level-avanzado">${w.level}</span>
+          <span class="tag tag-gender">${w.gender}</span>
+        </div>
+        <h2>${w.title}</h2>
+        <p class="card-desc">${w.subtitle} — ${w.desc}</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-meta-info">
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span>${w.main.length + w.warmup.length + w.metcon.length} Bloques Estructurales</span>
+          </div>
+        </div>
+        <button class="${isCompleted ? 'btn-done' : 'btn-start'}">${isCompleted ? 'Completado ✓' : 'Ver Rutina'}</button>
+      </div>
+    `;
+    
+    card.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') openModal(w);
+    });
+    
+    card.querySelector('button').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal(w);
+    });
+    
+    grid.appendChild(card);
+  });
+}
+
+function openModal(w) {
+  const overlay = document.getElementById('overlay');
+  const title = document.getElementById('modal-title');
+  const tags = document.getElementById('modal-tags');
+  const body = document.getElementById('modal-body');
+  const btnComplete = document.getElementById('btn-complete');
+  
+  title.innerHTML = `${w.title}<br><span style="font-size:14px; font-family:'Inter'; font-weight:400; color:var(--text-secondary);">${w.subtitle}</span>`;
+  tags.innerHTML = `
+    <span class="tag tag-disc-musculacion">${w.discipline}</span>
+    <span class="tag tag-level-avanzado">${w.level}</span>
+  `;
+  
+  let html = '';
+  
+  // 1. WARMUP
+  if (w.warmup && w.warmup.length > 0) {
+    html += `
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon warmup">🔥</div>
+          <div class="block-title warmup">Warm Up / Activación Dinámica</div>
+        </div>
+        <div class="block-content">
+    `;
+    w.warmup.forEach((ex, idx) => {
+      html += `
+        <div class="exercise-row">
+          <div class="exercise-num">${idx + 1}</div>
+          <div class="exercise-name">${ex.name}<sub>${ex.sub}</sub></div>
+          <div class="exercise-detail"><b>${ex.reps}</b></div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  // 2. MAIN BLOCK
+  if (w.main && w.main.length > 0) {
+    html += `
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon main">⚡</div>
+          <div class="block-title main">Bloque Principal (Hipertrofia / Sobrecarga Mecánica)</div>
+        </div>
+        <div class="block-content">
+    `;
+    w.main.forEach((ex, idx) => {
+      html += `
+        <div class="exercise-row">
+          <div class="exercise-num">${idx + 1}</div>
+          <div class="exercise-name">${ex.name}<sub>${ex.sub}</sub></div>
+          <div class="exercise-detail"><b>${ex.reps}</b>${ex.detail}</div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  // 3. METCON / CORE
+  if (w.metcon && w.metcon.length > 0) {
+    html += `
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon metcon">⏱️</div>
+          <div class="block-title metcon">Core / Estabilidad / Finisher Inmediato</div>
+        </div>
+        <div class="block-content">
+    `;
+    w.metcon.forEach((ex, idx) => {
+      html += `
+        <div class="exercise-row">
+          <div class="exercise-num">${idx + 1}</div>
+          <div class="exercise-name">${ex.name}<sub>${ex.sub}</sub></div>
+          <div class="exercise-detail"><b>${ex.reps}</b></div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  body.innerHTML = html;
+  
+  if (completedWorkouts.includes(w.id)) {
+    btnComplete.textContent = "Rutina Completada ✓";
+    btnComplete.classList.add('done');
+  } else {
+    btnComplete.textContent = "Marcar como completado";
+    btnComplete.classList.remove('done');
+  }
+  
+  btnComplete.onclick = () => {
+    if (completedWorkouts.includes(w.id)) {
+      completedWorkouts = completedWorkouts.filter(id => id !== w.id);
+      btnComplete.textContent = "Marcar como completado";
+      btnComplete.classList.remove('done');
+    } else {
+      completedWorkouts.push(w.id);
+      btnComplete.textContent = "Rutina Completada ✓";
+      btnComplete.classList.add('done');
+    }
+    localStorage.setItem('jp_completed_v1', JSON.stringify(completedWorkouts));
+    filterGrid();
+  };
+  
+  overlay.classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('btn-close-modal').addEventListener('click', closeModal);
+document.getElementById('overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+renderFilters();
+filterGrid();
+</script>
+</body>
+</html>
